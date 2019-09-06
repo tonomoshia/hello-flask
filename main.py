@@ -7,10 +7,7 @@ app.config['DEBUG'] = True      # displays runtime errors in the browser, too
 @app.route("/")
 def index():
     return """
-        <h1>Movie of the Day</h1>
-        <ul>
-            <li>The Big Lebowski</li>
-        </ul>
+        <h1>Hello World</h1>
     """
 
 app.run()
