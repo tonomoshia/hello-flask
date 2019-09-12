@@ -90,6 +90,7 @@ def validate_time():
 
     if not minutes_error and not hours_error:
         time = str(hours) + ':' + str(minutes)
+        # return redirect(url-path) where the url-path is a handler that we create to display the HTML for a response to valid inputs.
         return redirect('/valid-time?time={0}'.format(time))
     else:
         return time_form.format(hours_error=hours_error,
@@ -101,6 +102,7 @@ def validate_time():
 @app.route('/valid-time')
 def valid_time():
     time = request.args.get('time')
+    # give specific info back to the user using the query parameters
     return '<h1>You submitted {0}. Thanks for submitting a valid time!</h1>'.format(time)
 
 
