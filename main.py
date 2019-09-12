@@ -89,7 +89,8 @@ def validate_time():
             minutes = ''
 
     if not minutes_error and not hours_error:
-        return redirect('/valid-time')
+        time = str(hours) + ':' + str(minutes)
+        return redirect('/valid-time?time={0}'.format(time))
     else:
         return time_form.format(hours_error=hours_error,
                                 minutes_error=minutes_error,
@@ -99,7 +100,8 @@ def validate_time():
 
 @app.route('/valid-time')
 def valid_time():
-    return '<h1>Thanks for submitting a valid time!</h1>'
+    time = request.args.get('time')
+    return '<h1>You submitted {0}. Thanks for submitting a valid time!</h1>'.format(time)
 
 
 app.run()
