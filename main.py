@@ -28,8 +28,8 @@ def hello():
 
 time_form = """
     <style>
-        .error {( color: red; )}
-    <style>
+        .error {{ color: red; }}
+    </style>
     <h1>Validate Time</h1>
     <form method='POST'>
         <label>Hours (24-hour format)
@@ -44,9 +44,41 @@ time_form = """
     </form>
     """
 
+
 @app.route('/validate-time')
 def display_time_form():
-    return time_form.format(hours='', hours_error='', minutes='', minutes_error='')
+    return time_form.format(hours='', hours_error='',
+                            minutes='', minutes_error='')
+
+def is_integer(num):
+    try:
+        int(num)
+        return True
+    except ValueError:
+        return False
+
+@app.route('/validate_time', methods=['POST'])
+def validate_time():
+
+    hours = request.form['hours']
+    minutes= request.form['minutes']
+
+    hours_error = ''
+    minutes_error = ''
+
+    if not is_integer(hours):
+        hours_error = 'Not a valid integer'
+    else:
+        hours = int(hours)
+        if hours > 23 or hours < 0:
+            hours_error = 'Hour value out of range (0-23)'
+
+    if not is_integer(minutes):
+        minutes_error = 'Not a valid integer'
+    else:
+        minutes = int(minutes)
+        if minutes > 59 or minutes < 0:
+            minutes_error = 'Minutes value out of range (0-59)'
 
 
 app.run()
